@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*- 
 
 import argparse
 import sys
@@ -8,22 +9,27 @@ except ImportError:
         import simplejson as json
 from collections import defaultdict
 
-json_source="moscow-metro.json"
+json_time_source="moscow-metro.json"
+json_distance_source="stations.json"
 
 def calc():
-        json_data=open(json_source).read()
-        data = json.loads(json_data)
+        json_data=open(json_time_source).read()
+        time_data = json.loads(json_data)
 
-        links = data[0]["linkCount"]
+        json_data=open(json_distance_source).read()
+        distance_data = json.loads(json_data)
+
+        links = time_data[0]["linkCount"]
         for l in range(1, links):
-            fromStation = data[0]["links"][str(l)]["fromStationId"]
-            toStation = data[0]["links"][str(l)]["toStationId"]
-            line = data[0]["stations"][str(fromStation)]["lineId"]
-            linename = data[0]["lines"][str(line)]["name"]
-            nameFromStation = data[0]["stations"][str(fromStation)]["name"]
-            nameToStation = data[0]["stations"][str(toStation)]["name"]
-            time = data[0]["links"][str(l)]["weightTime"]
-            print "%s, %s, %s, %d, http://metro.yandex.ru/moscow?from=%d&to=%d&route=0" % (linename, nameFromStation, nameToStation, time, fromStation, toStation)
+            fromStation = time_data[0]["links"][str(l)]["fromStationId"]
+            toStation = time_data[0]["links"][str(l)]["toStationId"]
+            line = time_data[0]["stations"][str(fromStation)]["lineId"]
+            linename = time_data[0]["lines"][str(line)]["name"]
+            nameFromStation = time_data[0]["stations"][str(fromStation)]["name"]
+            nameToStation = time_data[0]["stations"][str(toStation)]["name"]
+            time = time_data[0]["links"][str(l)]["weightTime"]
+            #print "%s, %s, %s, %d, http://metro.yandex.ru/moscow?from=%d&to=%d&route=0" % (linename, nameFromStation, nameToStation, time, fromStation, toStation)
+            #print distance_data[1]["Сокольническая линия"]
 
 if len(sys.argv) > 1:
         sys.exit(1)
