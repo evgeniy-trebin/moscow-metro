@@ -13,12 +13,24 @@ json_source="moscow-metro.json"
 def calc():
         json_data=open(json_source).read()
         data = json.loads(json_data)
-        print(json_data)
 
-        for stations in data:
-                print stations['1']
+        stations = data[0]["stationCount"]
+        #for s in range(1, stations):
+            #print data[0]["stations"][str(s)]["name"], data[0]["stations"][str(s)]["lineId"]
 
-# "stationCount":195
-# "links":
+        links = data[0]["linkCount"]
+        for l in range(1, links):
+            fromStation = data[0]["links"][str(l)]["fromStationId"]
+            toStation = data[0]["links"][str(l)]["toStationId"]
+            print data[0]["stations"][fromStation]["name"]
+            #print data[0]["stations"][toStation]["name"]
+            #print data[0]["links"][str(l)]["weightTime"]
+
+def usage():
+        print "Calculate amount of time to transfer between closest stations."
+
+if len(sys.argv) > 1:
+        usage()
+        sys.exit(1)
 
 calc()
