@@ -29,7 +29,15 @@ def calc():
             nameToStation = time_data[0]["stations"][str(toStation)]["name"]
             time = time_data[0]["links"][str(l)]["weightTime"]
             #print "%s, %s, %s, %d, http://metro.yandex.ru/moscow?from=%d&to=%d&route=0" % (linename, nameFromStation, nameToStation, time, fromStation, toStation)
-            #print distance_data[1]["Сокольническая линия"]
+            #print distance_data[0]["stations"]
+            for jline in distance_data:
+                 if jline["line"] == linename:
+                    #print jline["line"]
+                    for station in jline["stations"]:
+                        if station["station"] == nameFromStation:
+                           print station["station"], station["long"], station["lat"]
+
+def get_geo():
 
 if len(sys.argv) > 1:
         sys.exit(1)
