@@ -31,10 +31,12 @@ def calculate():
             tlon = get_coord(linename, nameFromStation, "long")
             flat = get_coord(linename, nameToStation, "lat")
             flon = get_coord(linename, nameToStation, "long")
-            
-            if (flat, flon, tlat, tlon):
-               print "   ", flat, flon, tlat, tlon, nameFromStation, nameToStation
-               #print "%s, %s, %s, %d, http://metro.yandex.ru/moscow?from=%d&to=%d&route=0, %s" % (linename, nameFromStation, nameToStation, time, fromStation, toStation, get_distance(flat, flon, tlat, tlon))
+           
+            permalink = "http://www.yournavigation.org/?flat=" + flat + \
+            "&flon=" + flon + "&tlat=" + tlat + "&tlon=" + tlon + "&v=foot&shortest=1&layer=mapnik"
+            if (flat and flon and tlat and tlon):
+               #print "   ", flat, flon, tlat, tlon, nameFromStation, nameToStation
+               print "%s, %s, %s, %d, http://metro.yandex.ru/moscow?from=%d&to=%d&route=0, %s, %s" % (linename, nameFromStation, nameToStation, time, fromStation, toStation, get_distance(flat, flon, tlat, tlon), permalink)
 
 def get_coord(lnname, stname, coordinate):
         json_data=open(json_distance_source).read()
@@ -46,11 +48,14 @@ def get_coord(lnname, stname, coordinate):
                    if station["station"] == stname:
                       return station[coordinate]
 
+def get_coord1(lname, sname, coordinate):
+        url = "http://geocode-maps.yandex.ru/1.x/?&geocode=" + sname + "&kind=metro&format=json&rspn=1&ll=37.618920,55.756994&spn=0.552069,0.400552"
+
 def get_distance(flat, flon, tlat, tlon):
         url = "http://www.yournavigation.org/api/1.0/gosmore.php?format=geojson&flat=" \
-        + flat + "&flon=" + flon + "&tlat=" + tlat + "&tlon=" + tlon + "&v=foot&fast=1&layer=mapnik"
+        + flat + "&flon=" + flon + "&tlat=" + tlat + "&tlon=" + tlon + "&v=foot&shortest=1&layer=mapnik"
         geodata = json.load(urllib2.urlopen(url))
-        print geodata["properties"]["distance"]
+        return geodata["properties"]["distance"]
 
 if len(sys.argv) > 1:
         sys.exit(1)
