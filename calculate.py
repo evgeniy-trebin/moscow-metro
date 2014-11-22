@@ -34,36 +34,19 @@ def calculate():
             tlat = get_coord(tolinename, nameToStation, "lat")
             tlon = get_coord(tolinename, nameToStation, "long")
 
-            #if not flat:
-            #   print nameFromStation, " - ", flat, fromlinename, fromline
-            #if not tlat:
-            #   print nameToStation, " - ", tlat, tolinename, toline
-            #print nameToStation, tlat, tlon
-
-            #print get_coord(u"Бутовская линия", u"Бульвар Адмирала Ушакова", "long")
-
             permalink = "http://www.yournavigation.org/?flat=" + flat + \
             "flon=" + flon + "&tlat=" + tlat + "&tlon=" + tlon + "&v=foot&shortest=1&layer=mapnik"
 
-            #print "   ", flat, flon, tlat, tlon, nameFromStation, nameToStation
             print "%s, %s, %s, %s, %d, http://metro.yandex.ru/moscow?from=%d&to=%d&route=0, %s, %s" % (fromlinename, tolinename, nameFromStation, nameToStation, time, fromStation, toStation, get_distance(flat, flon, tlat, tlon), permalink)
 
 def get_coord(lnname, stname, coordinate):
         json_data=open(json_coord_source).read()
         coord_data = json.loads(json_data)
-        #print "=====", lnname, stname
         for jline in coord_data:
             if jline["line"] == lnname:
-               #print jline["line"], lnname
                for station in jline["stations"]:
                    if station["station"] == stname:
                       return station[coordinate]
-                      #return station["station"]
-
-def get_coord1(lname, sname, coordinate):
-        url = "http://geocode-maps.yandex.ru/1.x/?&geocode=" + lname + "," + sname + "&kind=metro&format=json"
-        #json_coord = json.load(urllib2.urlopen(url))
-        #print json_coord["response"]["GeoObjectCollection"]
 
 def get_distance(flat, flon, tlat, tlon):
         url = "http://www.yournavigation.org/api/1.0/gosmore.php?format=geojson&flat=" \
