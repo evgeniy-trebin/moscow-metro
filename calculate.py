@@ -10,7 +10,7 @@ except ImportError:
         import simplejson as json
 from collections import defaultdict
 
-json_time_source="moscow-metro.json"
+json_time_source="stations-time.json"
 json_coord_source="stations-coord.json"
 
 def calculate():
