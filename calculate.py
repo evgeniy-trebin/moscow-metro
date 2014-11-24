@@ -37,7 +37,10 @@ def calculate():
             permalink = "http://www.yournavigation.org/?flat=" + flat + \
             "flon=" + flon + "&tlat=" + tlat + "&tlon=" + tlon + "&v=foot&shortest=1&layer=mapnik"
 
-            print "%s, %s, %s, %s, %d, http://metro.yandex.ru/moscow?from=%d&to=%d&route=0, %s, %s" % (fromlinename, tolinename, nameFromStation, nameToStation, time, fromStation, toStation, get_distance(flat, flon, tlat, tlon), permalink)
+            url_metro = "http://metro.yandex.ru/moscow?from=" + str(fromStation) + "&to=" + str(toStation) + "&route=0"
+
+            print "%s, %s, %s, %s, %d, %s, %s, %s" % (fromlinename, tolinename, \
+            nameFromStation, nameToStation, time, url_metro, get_distance(flat, flon, tlat, tlon), permalink)
 
 def get_coord(lnname, stname, coordinate):
         json_data=open(json_coord_source).read()
