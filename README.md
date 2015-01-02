@@ -1,6 +1,6 @@
-## Moscow metro
+## #RaceTheTube in Moscow Underground
 
-![Moscow metro logo](https://github.com/ligurio/moscow-metro/blob/master/metro-logo.png)
+![Moscow underground logo](https://github.com/ligurio/moscow-metro/blob/master/metro-logo.png)
 
 Скрипт составляет таблицу вида:
 название линии метро, станция отправления, станция назначения, продолжительность, ссылка (вида http://metro.yandex.ru/moscow?from=140&to=139&route=0), расстояние между станциями для *пешехода*, ссылка на маршрут на карте
